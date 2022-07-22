@@ -1,6 +1,6 @@
 import { useState } from "react";
 
-const PizzaItem = ({ title, price, imageUrl, types, sizes }) => {
+const PizzaItem = ({ imageUrl, title, price, types, sizes }) => {
   const [activeType, setActiveType] = useState(0);
   const [activeSize, setActiveSize] = useState(0);
   const typesTitles = ["тонкое", "традиционное"];
