@@ -19,7 +19,7 @@ function App() {
         setPizzas(data)
         setIsLoading(false);
       });
-  }, []);
+  }, []); // eslint-disable-line 
 
   return (
     <div className="App">
