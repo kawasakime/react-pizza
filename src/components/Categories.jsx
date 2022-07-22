@@ -1,6 +1,6 @@
 import { useState } from "react";
 
-const Categories = () => {
+const Categories = ({ category, setCategory }) => {
   const categories = [
     "Все",
     "Мясные",
@@ -9,11 +9,6 @@ const Categories = () => {
     "Острые",
     "Закрытые",
   ];
-  const [active, setActive] = useState(0);
-
-  const setActiveHandler = (i) => {
-    setActive(i);
-  };
 
   return (
     <div className="categories">
@@ -21,8 +16,8 @@ const Categories = () => {
         {categories.map((title, i) => (
           <li
             key={i}
-            className={active === i ? "active" : null}
-            onClick={() => setActiveHandler(i)}
+            className={category === i ? "active" : null}
+            onClick={() => setCategory(i)}
           >
             {title}
           </li>

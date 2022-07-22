@@ -1,6 +1,6 @@
 const CountMinusBtn = () => {
   return (
-    <div class="button button--outline button--circle cart__item-count-minus">
+    <div className="button button--outline button--circle cart__item-count-minus">
       <svg
         width="10"
         height="10"

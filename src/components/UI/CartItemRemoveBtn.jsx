@@ -1,7 +1,7 @@
 const CartItemRemoveBtn = () => {
   return (
-    <div class="cart__item-remove">
-      <div class="button button--outline button--circle">
+    <div className="cart__item-remove">
+      <div className="button button--outline button--circle">
         <svg
           width="10"
           height="10"

@@ -6,27 +6,36 @@ import Skeleton from "../PizzaItem/Skeleton";
 import Sort from "../Sort";
 
 const Home = () => {
-
   const [pizzas, setPizzas] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
-  const resource = fetch("https://62d9b7eb5d893b27b2ebff37.mockapi.io/items");
+  const [categoryId, setCategoryId] = useState(0);
+  const [currentSort, setCurrentSort] = useState({
+    name: "популярности",
+    param: "rating",
+  });
 
   useEffect(() => {
-    resource
+    const category = categoryId > 0 ? `category=${categoryId}` : "";
+    const sortBy = currentSort.param;
+    const order = currentSort.order;
+
+    setIsLoading(true);
+    fetch(
+      `https://62d9b7eb5d893b27b2ebff37.mockapi.io/items?${category}&sortBy=${sortBy}&order=${order}`
+    )
       .then((res) => res.json())
       .then((data) => {
         setPizzas(data);
         setIsLoading(false);
       });
-  }, []); // eslint-disable-line
+  }, [categoryId, currentSort]); // eslint-disable-line
 
   return (
-
     <div className="content">
       <div className="container">
         <div className="content__top">
-          <Categories />
-          <Sort />
+          <Categories category={categoryId} setCategory={setCategoryId} />
+          <Sort currentSort={currentSort} setCurrentSort={setCurrentSort} />
         </div>
         <h2 className="content__title">Все пиццы</h2>
         <div className="content__items">

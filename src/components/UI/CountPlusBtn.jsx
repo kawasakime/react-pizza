@@ -1,6 +1,6 @@
 const CountPlusBtn = () => {
   return (
-    <div class="button button--outline button--circle cart__item-count-plus">
+    <div className="button button--outline button--circle cart__item-count-plus">
       <svg
         width="10"
         height="10"
