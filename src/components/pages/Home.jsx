@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 
 import Categories from "../Categories";
+import Pagination from "../Pagination";
 import PizzaItem from "../PizzaItem";
 import Skeleton from "../PizzaItem/Skeleton";
 import Sort from "../Sort";
@@ -8,6 +9,7 @@ import Sort from "../Sort";
 const Home = () => {
   const [pizzas, setPizzas] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
+  const [currentPage, setCurrentPage] = useState(1);
   const [categoryId, setCategoryId] = useState(0);
   const [currentSort, setCurrentSort] = useState({
     name: "популярности",
@@ -21,14 +23,15 @@ const Home = () => {
 
     setIsLoading(true);
     fetch(
-      `https://62d9b7eb5d893b27b2ebff37.mockapi.io/items?${category}&sortBy=${sortBy}&order=${order}`
+      `https://62d9b7eb5d893b27b2ebff37.mockapi.io/items?page=${currentPage}&limit=4&${category}&sortBy=${sortBy}&order=${order}`
     )
       .then((res) => res.json())
       .then((data) => {
         setPizzas(data);
         setIsLoading(false);
       });
-  }, [categoryId, currentSort]); // eslint-disable-line
+    window.scrollTo(0, 0);
+  }, [categoryId, currentSort, currentPage]); // eslint-disable-line
 
   return (
     <div className="content">
@@ -43,6 +46,7 @@ const Home = () => {
             ? [...new Array(6)].map((e, i) => <Skeleton key={i} />)
             : pizzas.map((pizza, i) => <PizzaItem key={i} {...pizza} />)}
         </div>
+        <Pagination currentPage={currentPage} setCurrentPage={setCurrentPage} />
       </div>
     </div>
   );
