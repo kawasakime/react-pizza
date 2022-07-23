@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { useSelector } from "react-redux";
 
 import Categories from "../components/Categories";
 import Pagination from "../components/Pagination";
@@ -16,6 +17,8 @@ const Home = () => {
     param: "rating",
   });
 
+  const searchValue = useSelector((state) => state.search.value);
+
   useEffect(() => {
     const category = categoryId > 0 ? `category=${categoryId}` : "";
     const sortBy = currentSort.param;
@@ -23,7 +26,7 @@ const Home = () => {
 
     setIsLoading(true);
     fetch(
-      `https://62d9b7eb5d893b27b2ebff37.mockapi.io/items?page=${currentPage}&limit=4&${category}&sortBy=${sortBy}&order=${order}`
+      `https://62d9b7eb5d893b27b2ebff37.mockapi.io/items?page=${currentPage}&limit=4&search=${searchValue}&${category}&sortBy=${sortBy}&order=${order}`
     )
       .then((res) => res.json())
       .then((data) => {
@@ -31,7 +34,7 @@ const Home = () => {
         setIsLoading(false);
       });
     window.scrollTo(0, 0);
-  }, [categoryId, currentSort, currentPage]); // eslint-disable-line
+  }, [categoryId, currentSort, currentPage, searchValue]); // eslint-disable-line
 
   return (
     <div className="content">
