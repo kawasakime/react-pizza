@@ -43,7 +43,7 @@ const Home = () => {
         <h2 className="content__title">Все пиццы</h2>
         <div className="content__items">
           {isLoading
-            ? [...new Array(6)].map((e, i) => <Skeleton key={i} />)
+            ? [...new Array(4)].map((e, i) => <Skeleton key={i} />)
             : pizzas.map((pizza, i) => <PizzaItem key={i} {...pizza} />)}
         </div>
         <Pagination currentPage={currentPage} setCurrentPage={setCurrentPage} />

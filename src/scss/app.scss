@@ -34,7 +34,7 @@ body {
   &__items {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-    grid-template-rows: repeat(2, 1fr);
+    grid-template-rows: repeat(auto-fit, 1fr);
     column-gap: 11px;
     justify-items: center;
   }
@@ -276,12 +276,8 @@ body {
           }
         }
 
-        svg {
+        img {
           margin-right: 12px;
-          path {
-            fill: transparent;
-            stroke-width: 2;
-          }
         }
       }
 

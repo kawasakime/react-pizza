@@ -4,6 +4,12 @@
   border-bottom: 1px solid $gray-line;
   padding: 40px 0;
 
+  &__cart {
+    img {
+      margin-right: 5px;
+    }
+  }
+
   @media (max-width: 500px) {
     & {
       padding: 20px 0;

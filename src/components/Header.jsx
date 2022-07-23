@@ -1,8 +1,11 @@
 import { Link } from "react-router-dom";
 import logo from "../assets/img/pizza-logo.svg";
-import CartIcon from "./UI/icons/CartIcon";
+import Search from "./Search";
+
+import cartIcon from '../assets/img/cart.svg'
 
 const Header = () => {
+
   return (
     <div className="header">
       <div className="container">
@@ -15,11 +18,12 @@ const Header = () => {
             </div>
           </div>
         </Link>
+        <Search/>
         <div className="header__cart">
           <Link to="/cart" className="button button--cart">
             <span>520 ₽</span>
             <div className="button__delimiter"></div>
-            <CartIcon/>
+            <img src={cartIcon} alt="" />
             <span>3</span>
           </Link>
         </div>

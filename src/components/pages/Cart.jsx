@@ -1,8 +1,9 @@
 import { Link } from "react-router-dom";
 import CartItem from "../CartItem";
-import BackArrowIcon from "../UI/icons/BackArrowIcon";
-import CartIcon from "../UI/icons/CartIcon";
-import TrashBasketIcon from "../UI/icons/TrashBasketIcon";
+
+import cartIcon from "../../assets/img/cart.svg";
+import backArrow from "../../assets/img/back-arrow.svg";
+import trashBasket from '../../assets/img/trash-basket.svg'
 
 const Cart = () => {
   return (
@@ -11,11 +12,11 @@ const Cart = () => {
         <div className="cart">
           <div className="cart__top">
             <h2 className="content__title">
-              <CartIcon />
+              <img src={cartIcon} alt="" />
               Корзина
             </h2>
             <div className="cart__clear">
-              <TrashBasketIcon />
+              <img src={trashBasket} alt="" />
               <span>Очистить корзину</span>
             </div>
           </div>
@@ -39,7 +40,7 @@ const Cart = () => {
                 to={"/"}
                 className="button button--outline button--add go-back-btn"
               >
-                <BackArrowIcon />
+                <img src={backArrow} alt="" />
                 <span>Вернуться назад</span>
               </Link>
               <div className="button pay-btn">
