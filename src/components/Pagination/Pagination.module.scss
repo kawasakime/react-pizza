@@ -1,0 +1,35 @@
+.pagination {
+  display: flex;
+  justify-content: center;
+
+  li {
+    width: 40px;
+    height: 40px;
+    background: #f3f3f3;;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 0 5px;
+    border-radius: 4px;
+    cursor: pointer;
+    color: #636363;
+
+    &.previous {
+      margin-right: 20px;
+      font-size: 25px;
+    }
+    &.next {
+      margin-left: 20px;
+      font-size: 25px;
+      // color: white;
+    }
+    &.selected {
+      border: 2px solid #d5d5d5;;
+      box-shadow: 0px 0px 5px 0 rgba(black, 0.3);
+    }
+
+    &:hover {
+      opacity: .7;
+    }
+  }
+}
