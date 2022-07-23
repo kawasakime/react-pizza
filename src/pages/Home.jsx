@@ -1,10 +1,10 @@
 import { useEffect, useState } from "react";
 
-import Categories from "../Categories";
-import Pagination from "../Pagination";
-import PizzaItem from "../PizzaItem";
-import Skeleton from "../PizzaItem/Skeleton";
-import Sort from "../Sort";
+import Categories from "../components/Categories";
+import Pagination from "../components/Pagination";
+import PizzaItem from "../components/PizzaItem";
+import Skeleton from "../components/PizzaItem/Skeleton";
+import Sort from "../components/Sort";
 
 const Home = () => {
   const [pizzas, setPizzas] = useState([]);

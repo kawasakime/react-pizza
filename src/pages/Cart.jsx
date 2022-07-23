@@ -1,9 +1,9 @@
 import { Link } from "react-router-dom";
-import CartItem from "../CartItem";
+import CartItem from "../components/CartItem";
 
-import cartIcon from "../../assets/img/cart.svg";
-import backArrow from "../../assets/img/back-arrow.svg";
-import trashBasket from '../../assets/img/trash-basket.svg'
+import cartIcon from "../assets/img/cart.svg";
+import backArrow from "../assets/img/back-arrow.svg";
+import trashBasket from '../assets/img/trash-basket.svg'
 
 const Cart = () => {
   return (
