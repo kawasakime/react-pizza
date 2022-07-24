@@ -1,4 +1,4 @@
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { update } from "../../redux/slices.js/searchSlice";
 import styles from "./Search.module.scss";
 import debounce from "lodash.debounce";
@@ -9,7 +9,7 @@ const Search = () => {
   const [value, setValue] = useState("");
   const dispatch = useDispatch();
 
-  const updateSearch = useCallback(
+  const updateSearch = useCallback( //eslint-disable-line
     debounce((text) => {
       console.log(text);
       dispatch(update(text));
