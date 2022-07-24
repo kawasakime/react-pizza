@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { createContext, useContext, useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 
 import axios from "axios";
@@ -8,6 +8,7 @@ import Pagination from "../components/Pagination";
 import PizzaItem from "../components/PizzaItem";
 import Skeleton from "../components/PizzaItem/Skeleton";
 import Sort from "../components/Sort";
+import { SearchContext } from "../App";
 
 const Home = () => {
   const [pizzas, setPizzas] = useState([]);
