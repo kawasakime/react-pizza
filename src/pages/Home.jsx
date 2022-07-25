@@ -11,21 +11,22 @@ import PizzaItem from "../components/PizzaItem";
 import Skeleton from "../components/PizzaItem/Skeleton";
 import Sort, { sortList } from "../components/Sort";
 import { setFilters } from "../redux/slices.js/filterSlice";
+import { setItems } from "../redux/slices.js/pizzaSlice";
 
 const Home = () => {
-  const [pizzas, setPizzas] = useState([]);
+  const pizzas = useSelector(state => state.pizza.items)
+  const currentPage = useSelector((state) => state.filter.currentPage);
+  const { category, sort } = useSelector((state) => state.filter);
+  const searchValue = useSelector((state) => state.search.value);
+
+  const dispatch = useDispatch();
+  
   const [isLoading, setIsLoading] = useState(true);
 
   const isSearch = useRef(false);
   const isMounted = useRef(false);
 
   const navigate = useNavigate();
-
-  const currentPage = useSelector((state) => state.filter.currentPage);
-  const { category, sort } = useSelector((state) => state.filter);
-  const searchValue = useSelector((state) => state.search.value);
-
-  const dispatch = useDispatch();
 
   function getData() {
     const categoryQuery = category > 0 ? `category=${category}` : "";
@@ -37,7 +38,7 @@ const Home = () => {
         `https://62d9b7eb5d893b27b2ebff37.mockapi.io/items?page=${currentPage}&limit=4&search=${searchValue}&${categoryQuery}&sortBy=${sortBy}&order=${order}`
       )
       .then((res) => {
-        setPizzas(res.data);
+        dispatch(setItems(res.data));
         setIsLoading(false);
       });
   }
