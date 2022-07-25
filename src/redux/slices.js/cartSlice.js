@@ -46,7 +46,7 @@ const cartSlice = createSlice({
     },
     decreaseItemsCount: (state, action) => {
       const index = findItemIndex(state.items, action.payload);
-      let count = state.items[index].count;
+      const count = state.items[index].count;
       state.items[index].count -= count > 1 ? 1 : 0;
       state.totalCount -= count > 1 ? 1 : 0;
       state.totalPrice -= count > 1 ? action.payload.price : 0;

@@ -9,7 +9,6 @@ const Pagination = () => {
   const dispatch = useDispatch();
 
   const setPage = (page) => {
-    console.log(page);
     dispatch(setCurrentPage(page));
   };
 
