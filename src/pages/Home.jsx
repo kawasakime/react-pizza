@@ -50,7 +50,7 @@ const Home = () => {
       dispatch(setFilters({ ...params, sort: sortParam }));
       isSearch.current = true;
     }
-  }, []);
+  }, []); // eslint-disable-line
 
   useEffect(() => {
     if (!isSearch.current) {
@@ -74,7 +74,7 @@ const Home = () => {
       navigate(`?${queryString}`);
     }
     isMounted.current = true;
-  }, [category, sort, currentPage]);
+  }, [category, sort, currentPage]); // eslint-disable-line
 
   return (
     <div className="content">
@@ -87,7 +87,7 @@ const Home = () => {
         <div className="content__items">
           {isLoading
             ? [...new Array(4)].map((e, i) => <Skeleton key={i} />)
-            : pizzas.map((pizza, i) => <PizzaItem key={i} {...pizza} />)}
+            : pizzas.map((pizza, i) => <PizzaItem key={i} pizza={pizza} />)}
         </div>
         <Pagination currentPage={currentPage} />
       </div>

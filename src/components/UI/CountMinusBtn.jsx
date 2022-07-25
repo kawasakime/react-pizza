@@ -1,6 +1,6 @@
-const CountMinusBtn = () => {
+const CountMinusBtn = ({ onClickHandler }) => {
   return (
-    <div className="button button--outline button--circle cart__item-count-minus">
+    <div className="button button--outline button--circle cart__item-count-minus" onClick={onClickHandler}>
       <svg
         width="10"
         height="10"

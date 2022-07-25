@@ -1,9 +1,34 @@
 import { useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { addItemToCart } from "../../redux/slices.js/cartSlice";
 
-const PizzaItem = ({ imageUrl, title, price, types, sizes }) => {
-  const [activeType, setActiveType] = useState(0);
-  const [activeSize, setActiveSize] = useState(0);
-  const typesTitles = ["тонкое", "традиционное"];
+export const typesTitles = ["тонкое", "традиционное"];
+
+const PizzaItem = ({ pizza }) => {
+  const { items } = useSelector((state) => state.cart);
+
+  const [currentType, setCurrentType] = useState(0);
+  const [currentSize, setCurrentSize] = useState(0);
+
+  const dispatch = useDispatch();
+
+  const { id, imageUrl, title, price, types, sizes } = pizza;
+  const item = { ...pizza, price: calcPrice(), currentType, currentSize };
+
+  function calcPrice() {
+    let currentPrice = price;
+    currentPrice += currentType === 1 ? 30 : 0;
+
+    if (currentSize === 1) currentPrice += 75;
+    else if (currentSize === 2) currentPrice += 150;
+
+    return currentPrice;
+  }
+
+  function getCount() {
+    const getItems = items.filter((e) => e.id === id);
+    return getItems.reduce((sum, e) => sum + e.count, 0);
+  }
 
   return (
     <div className="pizza-block">
@@ -14,8 +39,8 @@ const PizzaItem = ({ imageUrl, title, price, types, sizes }) => {
           {types.map((type) => (
             <li
               key={type}
-              className={activeType === type ? "active" : null}
-              onClick={() => setActiveType(type)}
+              className={currentType === type ? "active" : null}
+              onClick={() => setCurrentType(type)}
             >
               {typesTitles[type]}
             </li>
@@ -25,8 +50,8 @@ const PizzaItem = ({ imageUrl, title, price, types, sizes }) => {
           {sizes.map((size, i) => (
             <li
               key={i}
-              className={activeSize === i ? "active" : null}
-              onClick={() => setActiveSize(i)}
+              className={currentSize === i ? "active" : null}
+              onClick={() => setCurrentSize(i)}
             >
               {size} см.
             </li>
@@ -34,22 +59,26 @@ const PizzaItem = ({ imageUrl, title, price, types, sizes }) => {
         </ul>
       </div>
       <div className="pizza-block__bottom">
-        <div className="pizza-block__price">от {price} ₽</div>
-        <div className="button button--outline button--add">
+        <div className="pizza-block__price">{calcPrice()} ₽</div>
+        <div
+          className="button button--outline button--add"
+          onClick={() => {
+            dispatch(addItemToCart(item));
+          }}
+        >
           <svg
             width="12"
             height="12"
-            viewBox="0 0 12 12"
             fill="none"
             xmlns="http://www.w3.org/2000/svg"
           >
             <path
-              d="M10.8 4.8H7.2V1.2C7.2 0.5373 6.6627 0 6 0C5.3373 0 4.8 0.5373 4.8 1.2V4.8H1.2C0.5373 4.8 0 5.3373 0 6C0 6.6627 0.5373 7.2 1.2 7.2H4.8V10.8C4.8 11.4627 5.3373 12 6 12C6.6627 12 7.2 11.4627 7.2 10.8V7.2H10.8C11.4627 7.2 12 6.6627 12 6C12 5.3373 11.4627 4.8 10.8 4.8Z"
-              fill="white"
+              d="M10.8 4.8H7.2V1.2a1.2 1.2 0 0 0-2.4 0v3.6H1.2a1.2 1.2 0 0 0 0 2.4h3.6v3.6a1.2 1.2 0 0 0 2.4 0V7.2h3.6a1.2 1.2 0 0 0 0-2.4Z"
+              fill="#fff"
             />
           </svg>
           <span>Добавить</span>
-          <i>2</i>
+          {!!getCount() && <i>{getCount()}</i>}
         </div>
       </div>
     </div>

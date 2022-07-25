@@ -1,6 +1,6 @@
-const CartItemRemoveBtn = () => {
+const CartItemRemoveBtn = ({onClickHandler}) => {
   return (
-    <div className="cart__item-remove">
+    <div className="cart__item-remove" onClick={() => onClickHandler()}>
       <div className="button button--outline button--circle">
         <svg
           width="10"
