@@ -1,14 +1,13 @@
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import logo from "../assets/img/pizza-logo.svg";
 import Search from "./Search";
 
-import cartIcon from '../assets/img/cart.svg'
+import cartIcon from "../assets/img/cart.svg";
 import { useSelector } from "react-redux";
 
 const Header = () => {
-
   const { totalCount, totalPrice } = useSelector((state) => state.cart);
-
+  const { pathname } = useLocation();
   return (
     <div className="header">
       <div className="container">
@@ -21,15 +20,19 @@ const Header = () => {
             </div>
           </div>
         </Link>
-        <Search/>
-        <div className="header__cart">
-          <Link to="/cart" className="button button--cart">
-            <span>{totalPrice} ₽</span>
-            <div className="button__delimiter"></div>
-            <img src={cartIcon} alt="" />
-            <span>{totalCount}</span>
-          </Link>
-        </div>
+        {pathname !== "/cart" && (
+          <>
+            <Search />
+            <div className="header__cart">
+              <Link to="/cart" className="button button--cart">
+                <span>{totalPrice} ₽</span>
+                <div className="button__delimiter"></div>
+                <img src={cartIcon} alt="" />
+                <span>{totalCount}</span>
+              </Link>
+            </div>
+          </>
+        )}
       </div>
     </div>
   );
