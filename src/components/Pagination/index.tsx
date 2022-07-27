@@ -1,24 +1,29 @@
+import React from "react";
+
 import styles from "./Pagination.module.scss";
 import { MdNavigateNext, MdNavigateBefore } from "react-icons/md";
-import { useDispatch, useSelector } from "react-redux";
-import { setCurrentPage } from "../../redux/slices.js/filterSlice";
-const Pagination = () => {
-  const pagesCount = 3;
+import { useDispatch } from "react-redux";
+import { setCurrentPage } from "../../redux/slices/filterSlice";
 
-  const currentPage = useSelector((state) => state.filter.currentPage);
+type PaginationState = {
+  currentPage: number
+}
+
+const Pagination: React.FC<PaginationState> = ({currentPage}) => {
+  const pagesCount: number = 3;
   const dispatch = useDispatch();
 
-  const setPage = (page) => {
+  const setPage = (page: number) => {
     dispatch(setCurrentPage(page));
   };
 
-  function prevSelect() {
-    const current = currentPage - 1;
+  function prevSelect(event: React.MouseEvent) {
+    const current: number = currentPage - 1;
     setPage(current < 1 ? 1 : current);
   }
 
-  function nextSelect() {
-    const current = currentPage + 1;
+  function nextSelect(event: React.MouseEvent) {
+    const current: number = currentPage + 1;
     setPage(current > pagesCount ? pagesCount : current);
   }
 
@@ -31,7 +36,7 @@ const Pagination = () => {
         return (
           <li
             key={i}
-            className={currentPage - 1 === i ? styles.selected : null}
+            className={currentPage - 1 === i ? styles.selected : undefined}
             onClick={() => {
               setPage(i + 1);
             }}

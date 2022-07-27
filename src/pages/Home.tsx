@@ -1,5 +1,5 @@
-import { useEffect, useRef } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import React, { useEffect, useRef } from "react";
+import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 
 import qs from "qs";
@@ -9,33 +9,38 @@ import Pagination from "../components/Pagination";
 import PizzaItem from "../components/PizzaItem";
 import Skeleton from "../components/PizzaItem/Skeleton";
 import Sort, { sortList } from "../components/Sort";
-import { setFilters } from "../redux/slices.js/filterSlice";
-import { getPizzasData } from "../redux/slices.js/pizzaSlice";
+import { setFilters, SortProperty } from "../redux/slices/filterSlice";
+import { getPizzasData } from "../redux/slices/pizzaSlice";
+import { RootState, useAppDispatch } from "../redux/store";
 
-const Home = () => {
-  const { items: pizzas, status } = useSelector((state) => state.pizza);
-  const currentPage = useSelector((state) => state.filter.currentPage);
-  const { category, sort } = useSelector((state) => state.filter);
-  const searchValue = useSelector((state) => state.search.value);
+const Home: React.FC = () => {
+  const { items: pizzas, status } = useSelector(
+    (state: RootState) => state.pizza
+  );
+  const currentPage = useSelector(
+    (state: RootState) => state.filter.currentPage
+  );
+  const { category, sort } = useSelector((state: RootState) => state.filter);
+  const searchValue = useSelector((state: RootState) => state.search.value);
 
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
 
-  const isSearch = useRef(false);
-  const isMounted = useRef(false);
+  const isSearch = useRef<boolean>(false);
+  const isMounted = useRef<boolean>(false);
 
   const navigate = useNavigate();
 
   function getData() {
-    const categoryQuery = category > 0 ? `category=${category}` : "";
-    const sortBy = sort.param;
-    const order = sort.order;
+    const categoryQuery: string = category > 0 ? `category=${category}` : "";
+    const sortBy: string = sort.param;
+    const order: string = sort.order;
 
     dispatch(
       getPizzasData({
         categoryQuery,
         sortBy,
         order,
-        currentPage,
+        currentPage: String(currentPage),
         searchValue,
       })
     );
@@ -44,11 +49,17 @@ const Home = () => {
   useEffect(() => {
     if (window.location.search) {
       const params = qs.parse(window.location.search.substring(1));
-      const sortParam = sortList.find(
+      const sortParam: SortProperty = sortList.find(
         (obj) => obj.param === params.sortBy && obj.order === params.order
       );
 
-      dispatch(setFilters({ ...params, sort: sortParam }));
+      dispatch(
+        setFilters({
+          category: +params["category"],
+          currentPage: +params["currentPage"],
+          sort: sortParam,
+        })
+      );
       isSearch.current = true;
     }
   }, []); // eslint-disable-line

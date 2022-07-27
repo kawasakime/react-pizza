@@ -1,0 +1,12 @@
+{
+  "include": [
+    "src", "src/@types"
+  ],
+
+  "compilerOptions": {
+    "target": "ES5",
+    "jsx": "react-jsx",
+    "allowSyntheticDefaultImports": true,
+    "typeRoots": ["./src/@types", "./node_modules/@types"]
+  },
+}

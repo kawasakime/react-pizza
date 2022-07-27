@@ -1,13 +1,14 @@
+import React from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { setCategory } from "../redux/slices.js/filterSlice";
+import { setCategory } from "../redux/slices/filterSlice";
+import { RootState } from "../redux/store";
 
-const Categories = () => {
-
-  const categoryId = useSelector((state) => state.filter.category)
+const Categories: React.FC = () => {
+  const categoryId = useSelector((state: RootState) => state.filter.category);
   const dispatch = useDispatch();
 
-  function handlerSetCategory(id) {
-    dispatch(setCategory(id))
+  function handlerSetCategory(id: number) {
+    dispatch(setCategory(id));
   }
 
   const categories = [
@@ -25,7 +26,7 @@ const Categories = () => {
         {categories.map((title, i) => (
           <li
             key={i}
-            className={categoryId === i ? "active" : null}
+            className={categoryId === i ? "active" : undefined}
             onClick={() => handlerSetCategory(i)}
           >
             {title}

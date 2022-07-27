@@ -1,12 +1,27 @@
 import { createSlice } from "@reduxjs/toolkit";
+import type { PayloadAction } from "@reduxjs/toolkit";
+import { Pizza } from "./pizzaSlice";
 
-const initialState = {
+export interface CartPizza extends Pizza{
+  price: number,
+  currentType: number,
+  currentSize: number
+  count?: number
+}
+
+interface cartState {
+  items: CartPizza[];
+  totalCount: number;
+  totalPrice: number;
+}
+
+const initialState: cartState = {
   items: [],
   totalCount: 0,
   totalPrice: 0,
 };
 
-function findItemIndex(items, item) {
+function findItemIndex(items: CartPizza[], item: CartPizza) {
   return items.findIndex(
     (e) =>
       e.id === item.id &&
@@ -19,8 +34,8 @@ const cartSlice = createSlice({
   name: "cart",
   initialState,
   reducers: {
-    addItemToCart: (state, action) => {
-      let item = action.payload;
+    addItemToCart: (state, action: PayloadAction<CartPizza>) => {
+      let item: CartPizza = action.payload;
       const index = findItemIndex(state.items, item);
       if (index !== -1) {
         state.items[index].count += 1;
@@ -35,7 +50,7 @@ const cartSlice = createSlice({
       state.totalCount = 0;
       state.totalPrice = 0;
     },
-    removeItemFromCart: (state, action) => {
+    removeItemFromCart: (state, action: PayloadAction<CartPizza>) => {
       const index = findItemIndex(state.items, action.payload);
       state.items = [
         ...state.items.slice(0, index),
@@ -44,14 +59,14 @@ const cartSlice = createSlice({
       state.totalCount -= action.payload.count;
       state.totalPrice -= action.payload.price * action.payload.count;
     },
-    decreaseItemsCount: (state, action) => {
+    decreaseItemsCount: (state, action: PayloadAction<CartPizza>) => {
       const index = findItemIndex(state.items, action.payload);
       const count = state.items[index].count;
       state.items[index].count -= count > 1 ? 1 : 0;
       state.totalCount -= count > 1 ? 1 : 0;
       state.totalPrice -= count > 1 ? action.payload.price : 0;
     },
-    increaseItemsCount: (state, action) => {
+    increaseItemsCount: (state, action: PayloadAction<CartPizza>) => {
       const index = findItemIndex(state.items, action.payload);
       const count = state.items[index].count;
       state.items[index].count += count < 10 ? 1 : 0;

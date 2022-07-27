@@ -1,4 +1,8 @@
-const CountMinusBtn = ({ onClickHandler }) => {
+type CountMinusBtnProps = {
+  onClickHandler: React.MouseEventHandler<HTMLDivElement>
+}
+
+const CountMinusBtn: React.FC<CountMinusBtnProps> = ({ onClickHandler }) => {
   return (
     <div className="button button--outline button--circle cart__item-count-minus" onClick={onClickHandler}>
       <svg

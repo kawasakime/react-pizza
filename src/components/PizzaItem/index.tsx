@@ -1,11 +1,17 @@
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { addItemToCart } from "../../redux/slices.js/cartSlice";
+import { addItemToCart } from "../../redux/slices/cartSlice";
+import { RootState } from "../../redux/store";
+import { Pizza } from "../../redux/slices/pizzaSlice";
 
-export const typesTitles = ["тонкое", "традиционное"];
+export const typesTitles: string[] = ["тонкое", "традиционное"];
 
-const PizzaItem = ({ pizza }) => {
-  const { items } = useSelector((state) => state.cart);
+type PizzaItemProps = {
+  pizza: Pizza
+}
+
+const PizzaItem: React.FC<PizzaItemProps> = ({ pizza }) => {
+  const { items } = useSelector((state: RootState) => state.cart);
 
   const [currentType, setCurrentType] = useState(0);
   const [currentSize, setCurrentSize] = useState(0);
@@ -15,7 +21,7 @@ const PizzaItem = ({ pizza }) => {
   const { id, imageUrl, title, price, types, sizes } = pizza;
   const item = { ...pizza, price: calcPrice(), currentType, currentSize };
 
-  function calcPrice() {
+  function calcPrice(): number {
     let currentPrice = price;
     currentPrice += currentType === 1 ? 30 : 0;
 
@@ -25,7 +31,7 @@ const PizzaItem = ({ pizza }) => {
     return currentPrice;
   }
 
-  function getCount() {
+  function getCount(): number {
     const getItems = items.filter((e) => e.id === id);
     return getItems.reduce((sum, e) => sum + e.count, 0);
   }
@@ -36,7 +42,7 @@ const PizzaItem = ({ pizza }) => {
       <h4 className="pizza-block__title">{title}</h4>
       <div className="pizza-block__selector">
         <ul>
-          {types.map((type) => (
+          {types.map((type: number) => (
             <li
               key={type}
               className={currentType === type ? "active" : null}
@@ -47,7 +53,7 @@ const PizzaItem = ({ pizza }) => {
           ))}
         </ul>
         <ul>
-          {sizes.map((size, i) => (
+          {sizes.map((size: number, i: number) => (
             <li
               key={i}
               className={currentSize === i ? "active" : null}

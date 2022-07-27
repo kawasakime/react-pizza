@@ -1,3 +1,4 @@
+import React from "react";
 import emptyCart from "../../assets/img/empty-cart.png";
 
 const EmptyCart = () => {

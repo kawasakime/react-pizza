@@ -1,20 +1,25 @@
+import React from "react";
 import { useDispatch } from "react-redux";
 import {
   decreaseItemsCount,
   increaseItemsCount,
   removeItemFromCart,
-} from "../redux/slices.js/cartSlice";
+} from "../redux/slices/cartSlice";
 import { typesTitles } from "./PizzaItem";
 import CartItemRemove from "./UI/CartItemRemoveBtn";
 import CountMinusBtn from "./UI/CountMinusBtn";
 import CountPlusBtn from "./UI/CountPlusBtn";
+import { CartPizza } from "../redux/slices//cartSlice";
 
-const CartItem = ({ item }) => {
-  const { imageUrl, title, price, sizes, currentType, currentSize, count } =
-    item;
+type CartItemProps = {
+  item: CartPizza;
+};
+
+const CartItem: React.FC<CartItemProps> = ({ item }) => {
+  const {imageUrl, title, sizes, price, currentType, currentSize, count} = item;
   const dispatch = useDispatch();
 
-  function firstLetterToUpper(str) {
+  function firstLetterToUpper(str: string) {
     return str[0].toUpperCase() + str.slice(1);
   }
 
@@ -45,7 +50,7 @@ const CartItem = ({ item }) => {
       <div className="cart__item-count">
         <CountMinusBtn onClickHandler={handlerDecreaseCount} />
         <b>{count}</b>
-        <CountPlusBtn onClickHandler={handlerIncreaseCount}/>
+        <CountPlusBtn onClickHandler={handlerIncreaseCount} />
       </div>
       <div className="cart__item-price">
         <b>{price * count} ₽</b>

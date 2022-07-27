@@ -1,3 +1,5 @@
+import React from "react";
+
 import { Link } from "react-router-dom";
 import CartItem from "../../components/CartItem";
 
@@ -6,11 +8,12 @@ import backArrow from "../../assets/img/back-arrow.svg";
 import trashBasket from "../../assets/img/trash-basket.svg";
 
 import { useDispatch, useSelector } from "react-redux";
-import { clearCart } from "../../redux/slices.js/cartSlice";
+import { clearCart } from "../../redux/slices/cartSlice";
 import EmptyCart from "./EmptyCart";
+import { RootState } from "../../redux/store";
 
-const Cart = () => {
-  const { items, totalCount, totalPrice } = useSelector((state) => state.cart);
+const Cart: React.FC = () => {
+  const { items, totalCount, totalPrice } = useSelector((state: RootState) => state.cart);
   const dispatch = useDispatch();
 
   function handleClearCart() {
@@ -37,7 +40,7 @@ const Cart = () => {
             </div>
             <div className="content__items">
               {items.map((item, i) => (
-                <CartItem key={i} item={item} />
+                <CartItem key={i} item={{...item}} />
               ))}
             </div>
             <div className="cart__bottom">

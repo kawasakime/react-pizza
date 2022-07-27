@@ -1,8 +1,17 @@
+// import React from "react";
+
 import { useEffect, useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { setSort } from "../redux/slices.js/filterSlice";
+import { setSort } from "../redux/slices/filterSlice";
+import { RootState } from "../redux/store";
 
-export const sortList = [
+type SortItem = {
+  name: string;
+  param: string;
+  order: string;
+};
+
+export const sortList: SortItem[] = [
   { name: "популярности", param: "rating", order: "desc" },
   { name: "популярности (ASK)", param: "rating", order: "asc" },
   { name: "цене", param: "price", order: "desc" },
@@ -11,28 +20,29 @@ export const sortList = [
   { name: "алфавиту (ASK)", param: "title", order: "asc" },
 ];
 
-const Sort = () => {
-  const [openSort, setOpenSort] = useState(false);
+const Sort: React.FC = () => {
+  const [openSort, setOpenSort] = useState<boolean>(false);
 
-  const currentSort = useSelector((state) => state.filter.sort);
+  const currentSort = useSelector((state: RootState) => state.filter.sort);
   const dispatch = useDispatch();
 
-  const sortRef = useRef();
+  const sortRef = useRef<HTMLDivElement>(null);
 
-  const selectSortHandler = (sort) => {
+  const selectSortHandler = (sort: SortItem) => {
     dispatch(setSort(sort));
     setOpenSort(false);
   };
 
   useEffect(() => {
-    function handlerRemoveSortPopup(e) {
-      if (!e.composedPath().includes(sortRef.current)) {
+    function handlerRemoveSortPopup(event: MouseEvent) {
+      if (!event.composedPath().includes(sortRef.current)) {
         setOpenSort(false);
       }
     }
-    document.body.addEventListener("click", handlerRemoveSortPopup);
+    document.body.addEventListener("click", (e) => handlerRemoveSortPopup(e));
 
-    return () => document.body.removeEventListener("click", handlerRemoveSortPopup);
+    return () =>
+      document.body.removeEventListener("click", handlerRemoveSortPopup);
   }, []);
 
   return (
@@ -59,7 +69,9 @@ const Sort = () => {
             {sortList.map((sort, i) => (
               <li
                 key={i}
-                className={currentSort.name === sort.name ? "active" : null}
+                className={
+                  currentSort.name === sort.name ? "active" : undefined
+                }
                 onClick={() => selectSortHandler(sort)}
               >
                 {sort.name}

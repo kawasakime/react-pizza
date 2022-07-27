@@ -1,6 +1,10 @@
-const CartItemRemoveBtn = ({onClickHandler}) => {
+type CountItemRemoveBtn = {
+  onClickHandler: React.MouseEventHandler<HTMLDivElement>
+}
+
+const CartItemRemoveBtn: React.FC<CountItemRemoveBtn> = ({onClickHandler}) => {
   return (
-    <div className="cart__item-remove" onClick={() => onClickHandler()}>
+    <div className="cart__item-remove" onClick={onClickHandler}>
       <div className="button button--outline button--circle">
         <svg
           width="10"
