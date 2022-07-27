@@ -16,23 +16,24 @@ type CartItemProps = {
 };
 
 const CartItem: React.FC<CartItemProps> = ({ item }) => {
-  const {imageUrl, title, sizes, price, currentType, currentSize, count} = item;
+  const { imageUrl, title, sizes, price, currentType, currentSize, count } =
+    item;
   const dispatch = useDispatch();
 
   function firstLetterToUpper(str: string) {
     return str[0].toUpperCase() + str.slice(1);
   }
 
-  function handlerRemoveItem() {
+  function handlerRemoveItem(e) {
     dispatch(removeItemFromCart(item));
   }
 
-  function handlerDecreaseCount() {
-    dispatch(decreaseItemsCount(item));
+  function handlerDecreaseCount(e: React.MouseEvent<HTMLButtonElement>) {
+    if (item.count > 1) dispatch(decreaseItemsCount(item));
   }
 
-  function handlerIncreaseCount() {
-    dispatch(increaseItemsCount(item));
+  function handlerIncreaseCount(e: React.MouseEvent<HTMLButtonElement>) {
+    if (item.count < 10) dispatch(increaseItemsCount(item));
   }
 
   return (
@@ -48,9 +49,9 @@ const CartItem: React.FC<CartItemProps> = ({ item }) => {
         </p>
       </div>
       <div className="cart__item-count">
-        <CountMinusBtn onClickHandler={handlerDecreaseCount} />
+        <CountMinusBtn onClickHandler={handlerDecreaseCount} count={count} />
         <b>{count}</b>
-        <CountPlusBtn onClickHandler={handlerIncreaseCount} />
+        <CountPlusBtn onClickHandler={handlerIncreaseCount} count={count} />
       </div>
       <div className="cart__item-price">
         <b>{price * count} ₽</b>

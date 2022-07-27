@@ -5,19 +5,26 @@ import { useDispatch, useSelector } from "react-redux";
 import { setSort } from "../redux/slices/filterSlice";
 import { RootState } from "../redux/store";
 
+import { HiSortDescending, HiSortAscending } from "react-icons/hi";
+
 type SortItem = {
   name: string;
   param: string;
   order: string;
 };
 
+enum Order {
+  DESC = "desc",
+  ASC = "asc",
+}
+
 export const sortList: SortItem[] = [
-  { name: "популярности", param: "rating", order: "desc" },
-  { name: "популярности (ASK)", param: "rating", order: "asc" },
-  { name: "цене", param: "price", order: "desc" },
-  { name: "цене (ASK)", param: "price", order: "asc" },
-  { name: "алфавиту", param: "title", order: "desc" },
-  { name: "алфавиту (ASK)", param: "title", order: "asc" },
+  { name: "популярности", param: "rating", order: Order.DESC },
+  { name: "популярности", param: "rating", order: Order.ASC },
+  { name: "цене", param: "price", order: Order.DESC },
+  { name: "цене", param: "price", order: Order.ASC },
+  { name: "алфавиту", param: "title", order: Order.DESC },
+  { name: "алфавиту", param: "title", order: Order.ASC },
 ];
 
 const Sort: React.FC = () => {
@@ -70,11 +77,19 @@ const Sort: React.FC = () => {
               <li
                 key={i}
                 className={
-                  currentSort.name === sort.name ? "active" : undefined
+                  currentSort.name === sort.name &&
+                  currentSort.order === sort.order
+                    ? "active"
+                    : undefined
                 }
                 onClick={() => selectSortHandler(sort)}
               >
                 {sort.name}
+                {sort.order === Order.DESC ? (
+                  <HiSortDescending />
+                ) : (
+                  <HiSortAscending />
+                )}
               </li>
             ))}
           </ul>

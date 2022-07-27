@@ -1,10 +1,12 @@
 type CountPlusBtnProps = {
-  onClickHandler: React.MouseEventHandler<HTMLDivElement>
+  onClickHandler: React.MouseEventHandler<HTMLButtonElement>,
+  count: number
 }
 
-const CountPlusBtn: React.FC<CountPlusBtnProps> = ({ onClickHandler }) => {
+const CountPlusBtn: React.FC<CountPlusBtnProps> = ({ onClickHandler, count }) => {
   return (
-    <div
+    <button
+      disabled={count === 10}
       className="button button--outline button--circle cart__item-count-plus"
       onClick={onClickHandler}
     >
@@ -24,7 +26,7 @@ const CountPlusBtn: React.FC<CountPlusBtnProps> = ({ onClickHandler }) => {
           fill="#EB5A1E"
         />
       </svg>
-    </div>
+    </button>
   );
 };
 

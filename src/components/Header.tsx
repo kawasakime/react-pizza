@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Link, useLocation } from "react-router-dom";
 import logo from "../assets/img/pizza-logo.svg";
 import Search from "./Search";
@@ -8,8 +8,15 @@ import { useSelector } from "react-redux";
 import { RootState } from "../redux/store";
 
 const Header: React.FC = () => {
-  const { totalCount, totalPrice } = useSelector((state: RootState) => state.cart);
+  const { items, totalCount, totalPrice } = useSelector(
+    (state: RootState) => state.cart
+  );
   const { pathname } = useLocation();
+
+  useEffect(() => {
+    localStorage.setItem("cart", JSON.stringify({ items, totalCount, totalPrice }));
+  }, [items]); //eslint-disable-line
+
   return (
     <div className="header">
       <div className="container">

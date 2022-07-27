@@ -30,13 +30,20 @@
     border-radius: 10px;
     overflow: hidden;
     padding: 10px 0;
-    width: 160px;
+    width: 180px;
 
     ul {
       overflow: hidden;
       li {
+        display: flex;
+        justify-content: center;
+        align-items: center;
         padding: 12px 20px;
         cursor: pointer;
+
+        &>*:nth-child(1) {
+          margin-left: 10px;
+        }
 
         &.active,
         &:hover {

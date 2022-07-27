@@ -10,10 +10,8 @@ const Search: React.FC = () => {
   const [value, setValue] = useState<string>("");
   const dispatch = useDispatch();
 
-  const updateSearch = useCallback(
-    //eslint-disable-line
+  const updateSearch = useCallback( //eslint-disable-line
     debounce((text: string) => {
-      console.log(text);
       dispatch(update(text));
     }, 300),
     []

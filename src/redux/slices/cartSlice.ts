@@ -1,24 +1,27 @@
 import { createSlice } from "@reduxjs/toolkit";
 import type { PayloadAction } from "@reduxjs/toolkit";
 import { Pizza } from "./pizzaSlice";
+import { getCartData } from "../../utils/getCartFromLS";
 
-export interface CartPizza extends Pizza{
-  price: number,
-  currentType: number,
-  currentSize: number
-  count?: number
+export interface CartPizza extends Pizza {
+  price: number;
+  currentType: number;
+  currentSize: number;
+  count?: number;
 }
 
-interface cartState {
+export interface cartState {
   items: CartPizza[];
   totalCount: number;
   totalPrice: number;
 }
 
+const { items, totalCount, totalPrice } = getCartData();
+
 const initialState: cartState = {
-  items: [],
-  totalCount: 0,
-  totalPrice: 0,
+  items,
+  totalCount,
+  totalPrice,
 };
 
 function findItemIndex(items: CartPizza[], item: CartPizza) {
@@ -34,6 +37,9 @@ const cartSlice = createSlice({
   name: "cart",
   initialState,
   reducers: {
+    // setCart: (state, action: PayloadAction<cartState[]>) => {
+    //   {state.items, state.totalCount, state.totalPrice} = action.payload
+    // },
     addItemToCart: (state, action: PayloadAction<CartPizza>) => {
       let item: CartPizza = action.payload;
       const index = findItemIndex(state.items, item);
@@ -61,17 +67,15 @@ const cartSlice = createSlice({
     },
     decreaseItemsCount: (state, action: PayloadAction<CartPizza>) => {
       const index = findItemIndex(state.items, action.payload);
-      const count = state.items[index].count;
-      state.items[index].count -= count > 1 ? 1 : 0;
-      state.totalCount -= count > 1 ? 1 : 0;
-      state.totalPrice -= count > 1 ? action.payload.price : 0;
+      state.items[index].count -= 1;
+      state.totalCount -= 1;
+      state.totalPrice -= action.payload.price;
     },
     increaseItemsCount: (state, action: PayloadAction<CartPizza>) => {
       const index = findItemIndex(state.items, action.payload);
-      const count = state.items[index].count;
-      state.items[index].count += count < 10 ? 1 : 0;
-      state.totalCount += count < 10 ? 1 : 0;
-      state.totalPrice += count < 10 ? action.payload.price : 0;
+      state.items[index].count += 1;
+      state.totalCount += 1;
+      state.totalPrice += action.payload.price;
     },
   },
 });
