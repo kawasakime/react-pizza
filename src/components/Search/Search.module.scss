@@ -2,6 +2,12 @@
   position: relative;
   max-width: 600px;
   width: 100%;
+  @media (max-width: 1350px) {
+    order: -1;
+    margin-bottom: 20px;
+    width: 100%;
+    max-width: none;
+  }
   &__input {
     height: 51px;
     width: 100%;
