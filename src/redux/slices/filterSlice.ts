@@ -1,17 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { PayloadAction } from "@reduxjs/toolkit";
-
-export type SortProperty = {
-  name: string;
-  param: string;
-  order: string;
-}
-
-export interface FilterState {
-  category: number;
-  currentPage: number;
-  sort: SortProperty;
-}
+import { FilterState, SortProperty } from "../types";
 
 const initialState: FilterState = {
   category: 0,

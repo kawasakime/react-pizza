@@ -1,4 +1,4 @@
-import { cartState } from "../redux/slices/cartSlice";
+import { cartState } from "../redux/types";
 
 export const getCartData = (): cartState => {
   if (!localStorage.getItem("cart")) {

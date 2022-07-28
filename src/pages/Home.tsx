@@ -9,9 +9,10 @@ import Pagination from "../components/Pagination";
 import PizzaItem from "../components/PizzaItem";
 import Skeleton from "../components/PizzaItem/Skeleton";
 import Sort, { sortList } from "../components/Sort";
-import { setFilters, SortProperty } from "../redux/slices/filterSlice";
+import { setFilters } from "../redux/slices/filterSlice";
 import { getPizzasData } from "../redux/slices/pizzaSlice";
 import { RootState, useAppDispatch } from "../redux/store";
+import { SortProperty } from "../redux/types";
 
 const Home: React.FC = () => {
   const { items: pizzas, status } = useSelector(

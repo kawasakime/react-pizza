@@ -9,7 +9,7 @@ import { typesTitles } from "./PizzaItem";
 import CartItemRemove from "./UI/CartItemRemoveBtn";
 import CountMinusBtn from "./UI/CountMinusBtn";
 import CountPlusBtn from "./UI/CountPlusBtn";
-import { CartPizza } from "../redux/slices//cartSlice";
+import { CartPizza } from "../redux/types";
 
 type CartItemProps = {
   item: CartPizza;
@@ -24,7 +24,7 @@ const CartItem: React.FC<CartItemProps> = ({ item }) => {
     return str[0].toUpperCase() + str.slice(1);
   }
 
-  function handlerRemoveItem(e) {
+  function handlerRemoveItem(e: React.MouseEvent<HTMLDivElement>) {
     dispatch(removeItemFromCart(item));
   }
 

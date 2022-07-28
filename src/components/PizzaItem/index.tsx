@@ -2,7 +2,7 @@ import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { addItemToCart } from "../../redux/slices/cartSlice";
 import { RootState } from "../../redux/store";
-import { Pizza } from "../../redux/slices/pizzaSlice";
+import { Pizza } from "../../redux/types";
 
 export const typesTitles: string[] = ["тонкое", "традиционное"];
 
