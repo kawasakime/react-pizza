@@ -27,6 +27,11 @@ body {
 .content {
   padding: 40px 0;
 
+  @media (max-width: 700px) {
+    padding: 0;
+    padding-bottom: 10px;
+  }
+
   &__error {
     text-align: center;
     min-height: 30vh;
@@ -92,18 +97,6 @@ body {
     display: flex;
     align-items: center;
     font-size: 32px;
-
-    svg {
-      position: relative;
-      top: -2px;
-      width: 30px;
-      height: 30px;
-      margin-right: 10px;
-      path {
-        stroke: $black;
-        stroke-width: 1.9;
-      }
-    }
   }
 
   .content__items {
@@ -144,16 +137,24 @@ body {
 
   &__item {
     display: flex;
+    justify-content: space-between;
     width: 100%;
     border-top: 1px solid $gray-line;
     padding-top: 30px;
     margin-top: 30px;
 
+    @media (max-width: 700px) {
+      flex-wrap: wrap;
+    }
+
     &-img {
       display: flex;
       align-items: center;
       margin-right: 15px;
-      width: 10%;
+      width: 80px;
+      @media (max-width: 700px) {
+        margin-bottom: 15px;
+      }
 
       img {
         width: 80px;
@@ -166,6 +167,9 @@ body {
       flex-direction: column;
       justify-content: center;
       width: 40%;
+      @media (max-width: 700px) {
+        width: calc(100% - 95px);
+      }
 
       h3 {
         font-weight: bold;
@@ -186,6 +190,10 @@ body {
       justify-content: space-between;
       width: 13%;
 
+      @media (max-width: 850px) {
+        width: 95px;
+      }
+
       &-minus {
         svg {
           path:first-of-type {
@@ -204,6 +212,11 @@ body {
       align-items: center;
       justify-content: center;
       width: 33%;
+      min-width: 75px;
+
+      @media (max-width: 850px) {
+        width: 15%;
+      }
 
       b {
         font-weight: bold;
@@ -252,8 +265,20 @@ body {
       display: flex;
       justify-content: space-between;
 
+      @media (max-width: 600px) {
+        flex-direction: column;
+        align-items: flex-end;
+      }
+
       span {
         font-size: 22px;
+
+        @media (max-width: 600px) {
+          font-size: 20px;
+          &:first-child {
+            margin-bottom: 10px;
+          }
+        }
 
         &:last-of-type {
           b {
@@ -268,11 +293,21 @@ body {
       justify-content: space-between;
       margin-top: 40px;
 
+      @media (max-width: 600px) {
+        flex-direction: column-reverse;
+        align-items: center;
+        justify-content: flex-start;
+        & > .go-back-btn {
+          margin: 10px 0;
+        }
+      }
+
       .go-back-btn {
         display: flex;
         align-items: center;
         justify-content: center;
         width: 210px;
+        height: 53px;
 
         border-color: darken($color: $gray-line, $amount: 10);
 

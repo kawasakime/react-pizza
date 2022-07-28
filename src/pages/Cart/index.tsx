@@ -30,7 +30,6 @@ const Cart: React.FC = () => {
           <div className="cart">
             <div className="cart__top">
               <h2 className="content__title">
-                <img src={cartIcon} alt="" />
                 Корзина
               </h2>
               <div className="cart__clear" onClick={handleClearCart}>
